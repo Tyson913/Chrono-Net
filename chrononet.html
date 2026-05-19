@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChronoNet — Travel the Internet Through Time</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="chrononet.css">
+</head>
+
+<body>
+
+  <div class="loading-overlay" id="loading">
+    <div class="loading-year" id="loading-year">2004</div>
+    <div class="loading-bar"></div>
+    <div class="loading-text">Reconstructing the internet&hellip;</div>
+  </div>
+
+  <header>
+    <a class="logo" onclick="showPage('home')">Chrono<span>Net</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <i class="fa-solid fa-bars" id="navIcon"></i>
+    </button>
+    <nav id="mainNav">
+      <button class="nav-close" id="navClose" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
+      <a onclick="showPage('home')" data-page="home" class="active">Explore</a>
+      <a onclick="showPage('archive')" data-page="archive">Archive</a>
+      <a onclick="showPage('about')" data-page="about">About</a>
+      <button class="nav-cta" id="enterYearBtn">Enter a Year</button>
+    </nav>
+  </header>
+  </header>
+
+  <!-- ═══════════════════ HOME PAGE ═══════════════════ -->
+  <div class="page active" id="page-home">
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-grid" id="heroGrid"></div>
+      <div class="hero-eyeline"></div>
+      <div class="hero-content">
+        <div class="hero-label">Internet Time Machine</div>
+        <h1>The web,<br>as it <em>was.</em></h1>
+        <p class="hero-sub">Step back into any year since 1994. Relive the viral videos, the memes, the music charts,
+          the websites everyone was visiting — exactly as the internet remembered them.</p>
+        <div class="hero-cta-row">
+          <button class="cta-primary" onclick="scrollToExplore()">
+            <i class="fa-regular fa-clock"></i>
+            Start Exploring
+          </button>
+          <button class="cta-secondary" onclick="showPage('archive')">Browse by decade</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Year Selector -->
+    <section class="year-selector" id="explore">
+      <div class="section-label"><i class="fa-solid fa-timeline" style="margin-right:0.5rem;"></i> Select a Year</div>
+      <div class="timeline-input-area">
+        <div class="big-year-display" id="bigYear"></div>
+        <div class="year-slider-wrapper">
+          <span class="year-range">1994</span>
+          <input type="range" min="1994" max="2025" value="2004" id="yearSlider">
+          <span class="year-range">2025</span>
+        </div>
+      </div>
+      <div class="year-presets">
+        <span class="presets-label">QUICK JUMP</span>
+        <button class="presets-caret" id="presetPrev" aria-label="Previous years"><i
+            class="fa-solid fa-chevron-left"></i></button>
+        <div class="presets-track-wrapper">
+          <div class="presets-track" id="presetsTrack">
+            <button class="preset-btn" data-year="1994">1994</button>
+            <button class="preset-btn" data-year="1995">1995</button>
+            <button class="preset-btn" data-year="1996">1996</button>
+            <button class="preset-btn" data-year="1997">1997</button>
+            <button class="preset-btn" data-year="1998">1998</button>
+            <button class="preset-btn" data-year="1999">1999</button>
+            <button class="preset-btn" data-year="2000">Y2K</button>
+            <button class="preset-btn" data-year="2001">2001</button>
+            <button class="preset-btn" data-year="2002">2002</button>
+            <button class="preset-btn" data-year="2003">2003</button>
+            <button class="preset-btn" data-year="2004">2004</button>
+            <button class="preset-btn" data-year="2005">2005</button>
+            <button class="preset-btn" data-year="2006">2006</button>
+            <button class="preset-btn" data-year="2007">2007</button>
+            <button class="preset-btn" data-year="2008">2008</button>
+            <button class="preset-btn" data-year="2009">2009</button>
+            <button class="preset-btn" data-year="2010">2010</button>
+            <button class="preset-btn" data-year="2011">2011</button>
+            <button class="preset-btn" data-year="2012">2012</button>
+            <button class="preset-btn" data-year="2013">2013</button>
+            <button class="preset-btn" data-year="2014">2014</button>
+            <button class="preset-btn" data-year="2015">2015</button>
+            <button class="preset-btn" data-year="2016">2016</button>
+            <button class="preset-btn" data-year="2017">2017</button>
+            <button class="preset-btn" data-year="2018">2018</button>
+            <button class="preset-btn" data-year="2019">2019</button>
+            <button class="preset-btn" data-year="2020">2020</button>
+            <button class="preset-btn" data-year="2021">2021</button>
+            <button class="preset-btn" data-year="2022">2022</button>
+            <button class="preset-btn" data-year="2023">2023</button>
+            <button class="preset-btn" data-year="2024">2024</button>
+            <button class="preset-btn" data-year="2025">2025</button>
+          </div>
+        </div>
+        <button class="presets-caret" id="presetNext" aria-label="Next years"><i
+            class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- Results -->
+    <section class="results-section" id="results">
+      <div class="results-header">
+        <div class="results-title">The Internet in <span id="resultYear">2004</span></div>
+        <div class="results-meta" id="resultMeta">Loaded 47 artifacts · 5 categories</div>
+      </div>
+
+      <div class="category-tabs">
+        <button class="tab active" data-tab="videos"><i class="fa-solid fa-film"></i> Videos</button>
+        <button class="tab" data-tab="music"><i class="fa-solid fa-music"></i> Music</button>
+        <button class="tab" data-tab="memes"><i class="fa-solid fa-face-laugh-squint"></i> Memes</button>
+        <button class="tab" data-tab="sites"><i class="fa-solid fa-globe"></i> Websites</button>
+        <button class="tab" data-tab="events"><i class="fa-solid fa-bolt"></i> Events</button>
+      </div>
+
+      <div class="content-panel active" id="panel-videos">
+        <div class="mag-grid" id="videos-grid"></div>
+      </div>
+      <div class="content-panel" id="panel-music">
+        <div class="chart-list" id="music-list"></div>
+      </div>
+      <div class="content-panel" id="panel-memes">
+        <div class="meme-grid" id="memes-grid"></div>
+      </div>
+      <div class="content-panel" id="panel-sites">
+        <div class="sites-grid" id="sites-grid"></div>
+      </div>
+      <div class="content-panel" id="panel-events">
+        <div class="events-list" id="events-list"></div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+      <div class="features-header">
+        <div class="section-label"><i class="fa-solid fa-layer-group" style="margin-right:0.5rem;"></i> What You Get
+        </div>
+        <h2>Every era, <em>reconstructed</em><br>from the ground up.</h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-num">01</div>
+          <div class="feature-icon"><i class="fa-solid fa-film"></i></div>
+          <div class="feature-name">Trending Videos</div>
+          <div class="feature-desc">The clips everyone was forwarding via email, the viral moments before "viral" was a
+            word.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-num">02</div>
+          <div class="feature-icon"><i class="fa-solid fa-face-laugh-squint"></i></div>
+          <div class="feature-name">Viral Memes</div>
+          <div class="feature-desc">From image macros to reaction gifs — the absurd humor that defined each era of the
+            web.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-num">03</div>
+          <div class="feature-icon"><i class="fa-solid fa-globe"></i></div>
+          <div class="feature-name">Popular Sites</div>
+          <div class="feature-desc">The homepages, portals, and communities that millions bookmarked and called home.
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-num">04</div>
+          <div class="feature-icon"><i class="fa-solid fa-music"></i></div>
+          <div class="feature-name">Music Charts</div>
+          <div class="feature-desc">Billboard hits, Napster darlings, and the songs that soundtracked every AIM away
+            message.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-num">05</div>
+          <div class="feature-icon"><i class="fa-solid fa-bolt"></i></div>
+          <div class="feature-name">Online Events</div>
+          <div class="feature-desc">Launches, crashes, controversies — the moments that changed the internet forever.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Manifesto -->
+    <section class="manifesto">
+      <div class="manifesto-sidebar">
+        <div class="manifesto-label">Signal / 1994 → 2025</div>
+        <canvas id="manifestoCanvas"></canvas>
+      </div>
+      <div class="manifesto-body">
+        <div class="manifesto-pull">"The internet has no memory. I gave it one."</div>
+        <div class="manifesto-text">
+          The modern web is a palimpsest — layers upon layers of redesigns, 404s, and wayward archives. ChronoNet
+          reconstructs those lost moments not as musty museum pieces, but as living, breathing snapshots. I built this
+          because the internet deserves a history that feels as alive as it once did. Because a kid who grew up in 2007
+          should be able to show their own kid what the world looked like through a browser back then. Because culture
+          moves faster than memory, and I needed somewhere to slow down and look back.
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <footer>
+      <div class="footer-logo">Chrono<span>Net</span></div>
+      <div class="footer-copy">© 2025 — All eras reserved</div>
+      <div class="footer-creator">Created by <strong>Cj Banluta</strong></div>
+    </footer>
+  </div><!-- /page-home -->
+
+
+  <!-- ═══════════════════ ARCHIVE PAGE ═══════════════════ -->
+  <div class="page" id="page-archive">
+
+    <div class="page-hero">
+      <div class="page-hero-bg"></div>
+      <div class="page-hero-content">
+        <div class="hero-label"><i class="fa-solid fa-box-archive" style="margin-right:0.5rem;"></i> Complete Archive
+        </div>
+        <h2>Every year.<br><em>Every era.</em></h2>
+        <p>Browse the complete ChronoNet catalogue — 32 years of internet history, organized by decade. Click any year
+          to travel there instantly.</p>
+      </div>
+    </div>
+
+    <div class="archive-body">
+
+      <!-- Stats -->
+      <div class="archive-stats">
+        <div class="archive-stat">
+          <div class="archive-stat-num">32</div>
+          <div class="archive-stat-label"><i class="fa-regular fa-calendar" style="margin-right:0.4rem;"></i> Years
+            Covered</div>
+        </div>
+        <div class="archive-stat">
+          <div class="archive-stat-num">160+</div>
+          <div class="archive-stat-label"><i class="fa-solid fa-film" style="margin-right:0.4rem;"></i> Video Entries
+          </div>
+        </div>
+        <div class="archive-stat">
+          <div class="archive-stat-num">450+</div>
+          <div class="archive-stat-label"><i class="fa-solid fa-layer-group" style="margin-right:0.4rem;"></i> Total
+            Artifacts</div>
+        </div>
+        <div class="archive-stat">
+          <div class="archive-stat-num">5</div>
+          <div class="archive-stat-label"><i class="fa-solid fa-tags" style="margin-right:0.4rem;"></i> Categories</div>
+        </div>
+      </div>
+
+      <!-- 1990s -->
+      <div class="archive-decade">
+        <div class="section-label"><i class="fa-solid fa-compact-disc" style="margin-right:0.5rem;"></i> The Nineties
+        </div>
+        <div class="archive-years">
+          <button class="archive-year-btn" onclick="jumpToYear(1994)">
+            <div class="archive-year-num">1994</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">Netscape founded. First banner ad.</div>
+          </button>
+          <button class="archive-year-btn" onclick="jumpToYear(1995)">
+            <div class="archive-year-num">1995</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">Amazon opens. Windows 95 launches.</div>
+          </button>
+          <button class="archive-year-btn" onclick="jumpToYear(1996)">
+            <div class="archive-year-num">1996</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">Dancing Baby. Hotmail. eBay.</div>
+          </button>
+          <button class="archive-year-btn" onclick="jumpToYear(1997)">
+            <div class="archive-year-num">1997</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">Deep Blue beats Kasparov online.</div>
+          </button>
+          <button class="archive-year-btn" onclick="jumpToYear(1998)">
+            <div class="archive-year-num">1998</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">Google founded. MP3 takes off.</div>
+          </button>
+          <button class="archive-year-btn" onclick="jumpToYear(1999)">
+            <div class="archive-year-num">1999</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">Napster launches. Y2K panic begins.</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- 2000s -->
+      <div class="archive-decade">
+        <div class="section-label"><i class="fa-brands fa-internet-explorer" style="margin-right:0.5rem;"></i> The
+          Two-Thousands</div>
+        <div class="archive-years">
+          <button class="archive-year-btn" onclick="jumpToYear(2000)">
+            <div class="archive-year-num">2000</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">Dot-com bubble bursts. Y2K survives.</div>
+          </button>
+          <button class="archive-year-btn" onclick="jumpToYear(2001)">
+            <div class="archive-year-num">2001</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">Wikipedia launches. 9/11 & the web.</div>
+          </button>
+          <button class="archive-year-btn" onclick="jumpToYear(2002)">
+            <div class="archive-year-num">2002</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">Friendster. Flash games boom.</div>
+          </button>
+          <button class="archive-year-btn" onclick="jumpToYear(2003)">
+            <div class="archive-year-num">2003</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">MySpace, iTunes, Skype all launch.</div>
+          </button>
+          <button class="archive-year-btn" onclick="jumpToYear(2004)">
+            <div class="archive-year-num">2004</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">Facebook, Gmail, Numa Numa.</div>
+          </button>
+          <button class="archive-year-btn" onclick="jumpToYear(2005)">
+            <div class="archive-year-num">2005</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">YouTube launches. Web 2.0 arrives.</div>
+          </button>
+          <button class="archive-year-btn" onclick="jumpToYear(2006)">
+            <div class="archive-year-num">2006</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">Twitter launches. Google buys YouTube.</div>
+          </button>
+          <button class="archive-year-btn" onclick="jumpToYear(2007)">
+            <div class="archive-year-num">2007</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">iPhone. Charlie Bit My Finger.</div>
+          </button>
+          <button class="archive-year-btn" onclick="jumpToYear(2008)">
+            <div class="archive-year-num">2008</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">Obama on social media. App Store opens.</div>
+          </button>
+          <button class="archive-year-btn" onclick="jumpToYear(2009)">
+            <div class="archive-year-num">2009</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">Bitcoin. Lady Gaga on Twitter.</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- 2010s -->
+      <div class="archive-decade">
+        <div class="section-label"><i class="fa-brands fa-instagram" style="margin-right:0.5rem;"></i> The Twenty-Tens
+        </div>
+        <div class="archive-years">
+          <button class="archive-year-btn" onclick="jumpToYear(2010)">
+            <div class="archive-year-num">2010</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">Instagram launches. Old Spice goes viral.</div>
+          </button>
+          <button class="archive-year-btn" onclick="jumpToYear(2011)">
+            <div class="archive-year-num">2011</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">Arab Spring on Twitter. Siri debuts.</div>
+          </button>
+          <button class="archive-year-btn" onclick="jumpToYear(2012)">
+            <div class="archive-year-num">2012</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">Gangnam Style. Instagram sold. Doge.</div>
+          </button>
+          <button class="archive-year-btn" onclick="jumpToYear(2013)">
+            <div class="archive-year-num">2013</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">Vine. NSA Snowden. Harlem Shake.</div>
+          </button>
+          <button class="archive-year-btn" onclick="jumpToYear(2014)">
+            <div class="archive-year-num">2014</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">Ice Bucket Challenge. Twitch sold.</div>
+          </button>
+          <button class="archive-year-btn" onclick="jumpToYear(2015)">
+            <div class="archive-year-num">2015</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">The Dress. Left Shark. Meerkat.</div>
+          </button>
+          <button class="archive-year-btn" onclick="jumpToYear(2016)">
+            <div class="archive-year-num">2016</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">Pokémon GO. Harambe. US Election.</div>
+          </button>
+          <button class="archive-year-btn" onclick="jumpToYear(2017)">
+            <div class="archive-year-num">2017</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">Fidget spinners. PUBG. #MeToo.</div>
+          </button>
+          <button class="archive-year-btn" onclick="jumpToYear(2018)">
+            <div class="archive-year-num">2018</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">Fortnite. Facebook hearings.</div>
+          </button>
+          <button class="archive-year-btn" onclick="jumpToYear(2019)">
+            <div class="archive-year-num">2019</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">Area 51 raid. TikTok explodes.</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- 2020s -->
+      <div class="archive-decade">
+        <div class="section-label"><i class="fa-solid fa-microchip" style="margin-right:0.5rem;"></i> The
+          Twenty-Twenties</div>
+        <div class="archive-years">
+          <button class="archive-year-btn" onclick="jumpToYear(2020)">
+            <div class="archive-year-num">2020</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">Pandemic. Zoom. Among Us.</div>
+          </button>
+          <button class="archive-year-btn" onclick="jumpToYear(2021)">
+            <div class="archive-year-num">2021</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">GameStop. NFTs. Capitol streaming.</div>
+          </button>
+          <button class="archive-year-btn" onclick="jumpToYear(2022)">
+            <div class="archive-year-num">2022</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">ChatGPT launches. Musk buys Twitter.</div>
+          </button>
+          <button class="archive-year-btn" onclick="jumpToYear(2023)">
+            <div class="archive-year-num">2023</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">AI everywhere. Threads launches.</div>
+          </button>
+          <button class="archive-year-btn" onclick="jumpToYear(2024)">
+            <div class="archive-year-num">2024</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">Kendrick vs Drake. Brat Summer.</div>
+          </button>
+          <button class="archive-year-btn" onclick="jumpToYear(2025)">
+            <div class="archive-year-num">2025</div>
+            <div class="archive-year-tag"><i class="fa-solid fa-circle-check"
+                style="margin-right:0.3rem; color:var(--sepia-light);"></i>Available</div>
+            <div class="archive-year-note">DeepSeek. Ghibli AI. Pope Leo XIV.</div>
+          </button>
+        </div>
+      </div>
+
+    </div><!-- /archive-body -->
+
+    <div class="divider"></div>
+    <footer>
+      <div class="footer-logo">Chrono<span>Net</span></div>
+      <div class="footer-copy">© 2025 — All eras reserved</div>
+      <div class="footer-creator">Created by <strong>Cj Banluta</strong></div>
+    </footer>
+  </div><!-- /page-archive -->
+
+
+  <!-- ═══════════════════ ABOUT PAGE ═══════════════════ -->
+  <div class="page" id="page-about">
+
+    <div class="page-hero">
+      <div class="page-hero-bg"></div>
+      <div class="page-hero-content">
+        <div class="hero-label"><i class="fa-solid fa-circle-info" style="margin-right:0.5rem;"></i> About ChronoNet
+        </div>
+        <h2>Built for the<br><em>curious.</em></h2>
+        <p>ChronoNet is an internet time machine — a living archive of the web as it was, year by year, for anyone who
+          wants to remember, discover, or just feel something.</p>
+      </div>
+    </div>
+
+    <div class="about-body">
+
+      <!-- Mission -->
+      <div class="about-grid">
+        <div class="about-sidebar-label"><canvas id="aboutCanvas"></canvas></div>
+        <div>
+          <div class="about-lead">"The internet has no memory. I gave it one."</div>
+          <p class="about-text">The modern web is a palimpsest — layers upon layers of redesigns, 404 errors, and broken
+            archives. Entire eras of culture have quietly vanished: the Flash games that ate your afternoons, the
+            GeoCities pages someone poured their heart into, the memes that were everywhere and then nowhere.</p>
+          <p class="about-text">ChronoNet reconstructs those lost moments not as musty museum pieces, but as living,
+            breathing snapshots. I built this because the internet deserves a history that feels as alive as it once
+            did. Because culture moves faster than memory, and I needed somewhere to slow down and look back.</p>
+          <p class="about-text">Every year in our archive is curated by hand: real data, real cultural context, real
+            artifacts. Not hallucinated, not approximated. The web as it genuinely was.</p>
+        </div>
+      </div>
+
+      <!-- Values -->
+      <div class="section-label"><i class="fa-solid fa-star" style="margin-right:0.5rem;"></i> What I Stand For</div>
+      <div class="about-values">
+        <div class="about-value">
+          <div class="about-value-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+          <div class="about-value-name">Accuracy First</div>
+          <div class="about-value-desc">Every entry is researched and verified against primary sources. If I can't
+            confirm it, I don't include it. The archive is only valuable if it's trustworthy.</div>
+        </div>
+        <div class="about-value">
+          <div class="about-value-icon"><i class="fa-solid fa-heart"></i></div>
+          <div class="about-value-name">Cultural Respect</div>
+          <div class="about-value-desc">Internet culture is real culture. I treat every era with the same rigor a
+            historian would bring to any other period — because these moments shaped how billions of people think.</div>
+        </div>
+        <div class="about-value">
+          <div class="about-value-icon"><i class="fa-solid fa-door-open"></i></div>
+          <div class="about-value-name">Open Access</div>
+          <div class="about-value-desc">History belongs to everyone. ChronoNet is free to explore, free to share, and
+            free to use as a reference. No paywalls on the past.</div>
+        </div>
+      </div>
+
+      <!-- Creator -->
+      <div class="about-team-label"><i class="fa-solid fa-user" style="margin-right:0.5rem;"></i> Creator</div>
+      <div class="about-team-card">
+        <div class="about-avatar">CJ</div>
+        <div>
+          <div class="about-person-name">Cj Banluta</div>
+          <div class="about-person-role"><i class="fa-solid fa-code" style="margin-right:0.4rem;"></i>Founder &amp;
+            Developer</div>
+          <div class="about-person-bio">Builder of ChronoNet and lifelong student of internet culture. Believes every
+            era of the web deserves to be remembered with the same reverence I give to any other chapter of human
+            history.</div>
+        </div>
+      </div>
+    </div><!-- /about-body -->
+
+    <div class="divider"></div>
+    <footer>
+      <div class="footer-logo">Chrono<span>Net</span></div>
+      <div class="footer-copy">© 2025 — All eras reserved</div>
+      <div class="footer-creator">Created by <strong>Cj Banluta</strong></div>
+    </footer>
+  </div><!-- /page-about -->
+  <script src="chrononet.js"></script>
+</body>
+</html>
