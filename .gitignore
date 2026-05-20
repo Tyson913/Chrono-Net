@@ -4,3 +4,4 @@ backend/*.log
 .chrome-profile-*
 .edge-profile-*
 README.md
+.vercel
