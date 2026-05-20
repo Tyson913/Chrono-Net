@@ -1084,6 +1084,134 @@ function getDataForYear(year) {
     return { data: source[closest], closestYear: closest };
 }
 
+const CATEGORY_FALLBACK_ICONS = {
+    videos: "fa-solid fa-film",
+    music: "fa-solid fa-music",
+    memes: "fa-solid fa-face-laugh-squint",
+    sites: "fa-solid fa-globe",
+    events: "fa-solid fa-bolt"
+};
+
+const CATEGORY_FALLBACK_MARKS = {
+    videos: "&#9658;",
+    music: "&#9835;",
+    memes: "&#9786;",
+    sites: "@",
+    events: "!"
+};
+
+const UNSUPPORTED_ICON_FALLBACKS = {
+    "fa-brands fa-buzzfeed": "fa-solid fa-newspaper",
+    "fa-brands fa-periscope": "fa-solid fa-video",
+    "fa-solid fa-bear": "fa-solid fa-paw",
+    "fa-solid fa-dancer": "fa-solid fa-person-running",
+    "fa-solid fa-dress": "fa-solid fa-shirt",
+    "fa-solid fa-lips": "fa-solid fa-face-kiss-wink-heart",
+    "fa-solid fa-squid": "fa-solid fa-shapes",
+    "fa-solid fa-ufo": "fa-solid fa-meteor"
+};
+
+const VIDEO_TAG_ICONS = {
+    Activism: "fa-solid fa-bullhorn",
+    Advertising: "fa-solid fa-rectangle-ad",
+    AI: "fa-solid fa-microchip",
+    Animation: "fa-solid fa-wand-magic-sparkles",
+    Audio: "fa-solid fa-volume-high",
+    Celebrity: "fa-solid fa-star",
+    Challenge: "fa-solid fa-person-running",
+    Charity: "fa-solid fa-hand-holding-heart",
+    Comedy: "fa-solid fa-face-laugh",
+    Community: "fa-solid fa-users",
+    Culture: "fa-solid fa-icons",
+    Documentary: "fa-solid fa-video",
+    Film: "fa-solid fa-film",
+    Finance: "fa-solid fa-chart-line",
+    Flash: "fa-solid fa-bolt",
+    Gaming: "fa-solid fa-gamepad",
+    Horror: "fa-solid fa-ghost",
+    "K-Pop": "fa-solid fa-music",
+    Meme: "fa-solid fa-face-laugh-squint",
+    Music: "fa-solid fa-music",
+    News: "fa-solid fa-newspaper",
+    Personal: "fa-solid fa-user",
+    Political: "fa-solid fa-landmark",
+    Politics: "fa-solid fa-landmark",
+    "Pop Culture": "fa-solid fa-star",
+    Sports: "fa-solid fa-trophy",
+    Tech: "fa-solid fa-microchip",
+    Trend: "fa-solid fa-fire",
+    TV: "fa-solid fa-tv",
+    "TV/Viral": "fa-solid fa-tv",
+    Viral: "fa-solid fa-fire",
+    YouTube: "fa-brands fa-youtube"
+};
+
+const EVENT_ICON_RULES = [
+    { test: /ai|chatgpt|sora|deepseek|robot|algorithm/i, icon: "fa-solid fa-microchip" },
+    { test: /lawsuit|court|hearing|congress|ban|blackout|trial|api|privacy|antitrust/i, icon: "fa-solid fa-scale-balanced" },
+    { test: /ipo|public|stock|bitcoin|crypto|valuation|bubble|bought|acquisition|buys|sells/i, icon: "fa-solid fa-chart-line" },
+    { test: /iphone|android|app store|mobile|smartphone/i, icon: "fa-solid fa-mobile-screen-button" },
+    { test: /youtube|tiktok|vine|twitch|video|stream|livestream|oscars|slap|reels/i, icon: "fa-solid fa-film" },
+    { test: /napster|itunes|spotify|music|swift|song|drake|kendrick|brat/i, icon: "fa-solid fa-music" },
+    { test: /facebook|twitter|myspace|instagram|reddit|threads|social|snapchat|tumblr|discord|clubhouse/i, icon: "fa-solid fa-users" },
+    { test: /war|pandemic|covid|attack|9\/11|hack|crisis|outage|shutdown|invasion/i, icon: "fa-solid fa-triangle-exclamation" },
+    { test: /launch|founded|opens|registered|incorporates|created|starts|goes live/i, icon: "fa-solid fa-rocket" },
+    { test: /web|internet|browser|google|yahoo|netscape|amazon|wikipedia|search|domain|website/i, icon: "fa-solid fa-globe" }
+];
+
+function getSafeIcon(icon, fallback) {
+    const safeFallback = fallback || CATEGORY_FALLBACK_ICONS.events;
+    const normalized = typeof icon === 'string' ? icon.trim() : '';
+    return UNSUPPORTED_ICON_FALLBACKS[normalized] || normalized || safeFallback;
+}
+
+function getVideoIcon(video) {
+    return getSafeIcon(video.icon, VIDEO_TAG_ICONS[video.tag] || CATEGORY_FALLBACK_ICONS.videos);
+}
+
+function getMusicIcon(track) {
+    return getSafeIcon(track.icon, CATEGORY_FALLBACK_ICONS.music);
+}
+
+function getMemeIcon(meme) {
+    return getSafeIcon(meme.icon, CATEGORY_FALLBACK_ICONS.memes);
+}
+
+function getSiteIcon(site) {
+    return getSafeIcon(site.icon, CATEGORY_FALLBACK_ICONS.sites);
+}
+
+function getEventIcon(event) {
+    const searchable = `${event.title || ''} ${event.desc || ''}`;
+    const matched = EVENT_ICON_RULES.find(rule => rule.test.test(searchable));
+    return getSafeIcon(event.icon, matched ? matched.icon : CATEGORY_FALLBACK_ICONS.events);
+}
+
+function renderContentIcon(wrapperClass, icon, category) {
+    const fallbackMark = CATEGORY_FALLBACK_MARKS[category] || "*";
+    return `<div class="${wrapperClass} content-icon" aria-hidden="true"><span class="icon-fallback">${fallbackMark}</span><i class="${icon}"></i></div>`;
+}
+
+function hasRenderableFontIcon(icon) {
+    if (!icon) return false;
+    const content = window.getComputedStyle(icon, '::before').content;
+    return Boolean(content && content !== 'none' && content !== 'normal' && content !== '""');
+}
+
+function refreshContentIconFallbacks() {
+    document.querySelectorAll('.content-icon').forEach(wrapper => {
+        wrapper.classList.toggle('has-fa-icon', hasRenderableFontIcon(wrapper.querySelector('i')));
+    });
+}
+
+function scheduleContentIconFallbackRefresh() {
+    [0, 100, 500, 1500, 3000].forEach(delay => {
+        setTimeout(refreshContentIconFallbacks, delay);
+    });
+}
+
+window.addEventListener('load', scheduleContentIconFallbackRefresh);
+
 // ── PAGE SYSTEM ──
 function showPage(name) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -1929,6 +2057,7 @@ function renderYear(year, closestYear, data) {
     renderMemes(data.memes);
     renderSites(data.sites);
     renderEvents(data.events);
+    scheduleContentIconFallbackRefresh();
 }
 
 function renderVideos(videos) {
@@ -1938,7 +2067,10 @@ function renderVideos(videos) {
         const div = document.createElement('div');
         div.className = 'mag-card' + (i === 0 ? ' featured' : '');
         div.innerHTML = `
-        <div class="card-tag">${v.tag}</div>
+        <div class="card-topline">
+          <div class="card-tag">${v.tag}</div>
+          ${renderContentIcon('card-icon', getVideoIcon(v), 'videos')}
+        </div>
         <div class="card-rank">No. ${String(i + 1).padStart(2, '0')}</div>
         <div class="card-title">${v.title}</div>
         <div class="card-meta">${v.meta}</div>
@@ -1959,6 +2091,7 @@ function renderMusic(tracks) {
         row.className = 'chart-row';
         row.innerHTML = `
         <div class="chart-num">${t.num}</div>
+        ${renderContentIcon('chart-icon', getMusicIcon(t), 'music')}
         <div class="chart-info">
           <div class="chart-song">${t.song}</div>
           <div class="chart-artist">${t.artist}</div>
@@ -1975,7 +2108,7 @@ function renderMemes(memes) {
         const div = document.createElement('div');
         div.className = 'meme-card';
         div.innerHTML = `
-        <div class="meme-icon"><i class="${m.icon}"></i></div>
+        ${renderContentIcon('meme-icon', getMemeIcon(m), 'memes')}
         <div class="meme-name">${m.name}</div>
         <div class="meme-desc">${m.desc}</div>
         <div class="meme-spread">${m.spread}</div>`;
@@ -1990,7 +2123,7 @@ function renderSites(sites) {
         const div = document.createElement('div');
         div.className = 'site-card';
         div.innerHTML = `
-        <div class="site-icon"><i class="${s.icon}"></i></div>
+        ${renderContentIcon('site-icon', getSiteIcon(s), 'sites')}
         <div>
           <div class="site-name">${s.name}</div>
           <div class="site-desc">${s.desc}</div>
@@ -2008,7 +2141,7 @@ function renderEvents(events) {
         row.className = 'event-row';
         row.innerHTML = `
         <div class="event-date">${e.date}</div>
-        <div class="event-line"></div>
+        <div class="event-line">${renderContentIcon('event-icon', getEventIcon(e), 'events')}</div>
         <div class="event-body">
           <div class="event-title">${e.title}</div>
           <div class="event-desc">${e.desc}</div>
